@@ -246,7 +246,7 @@ try:
   
     # Add arguments to argparse and parse arguments 
     args.add_argument('-L', '--lock', help='Lock a folder (usage: xiploc -L <folder_name>)')
-    args.add_argument('-U', '--unlock', help='Unlock a folder (usage: xiploc -U <folder_name>)')
+    args.add_argument('-U', '--unlock', help='Unlock a folder (usage: xiploc -U <unlock_file_name>)')
     args = args.parse_args()
     
     # Check if arguments passed are valid 
