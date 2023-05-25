@@ -291,7 +291,7 @@ try:
       if len(LOCKFOLDER.split("/")) == 2:
         LFNAME = LOCKFOLDER.split("/")[0]
       else:
-        LFNAME = LOCKFOLDER.split("/")[len(LOCKFOLDER) - 2]
+        LFNAME = LOCKFOLDER.split("/")[len(LOCKFOLDER.split("/")) - 2]
       
       # Enquire user to create an encryption password to generate key with 
       corePassword = str(input("Create Encryption Password: ")).encode()
