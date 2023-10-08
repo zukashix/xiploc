@@ -121,7 +121,7 @@ try:
       CRYPTO_SALT = ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
       
       # Use cryptography to generate an encryption key using user's password and salt
-      kdf = PBKDF2HMAC( algorithm = hashes.SHA256 , length = 32 , salt = CRYPTO_SALT.encode() , iterations = 100000 , backend = default_backend() )
+      kdf = PBKDF2HMAC( algorithm = hashes.SHA256() , length = 32 , salt = CRYPTO_SALT.encode() , iterations = 100000 , backend = default_backend() )
       coreKey = base64.urlsafe_b64encode(kdf.derive(corePassword))
       cipher = Fernet(coreKey)
       
@@ -171,7 +171,7 @@ try:
       self.__chunkLoc = os.path.abspath(self.__unlockFile).replace("\\", "/")[:-20]
       
       # Generate key from user password and salt
-      kdf = PBKDF2HMAC( algorithm = hashes.SHA256 , length = 32 , salt = self.__cryptoSalt.encode() , iterations = 100000 , backend = default_backend() )
+      kdf = PBKDF2HMAC( algorithm = hashes.SHA256() , length = 32 , salt = self.__cryptoSalt.encode() , iterations = 100000 , backend = default_backend() )
       coreKey = base64.urlsafe_b64encode(kdf.derive(self.__corePassword))
       self.__Cipher = Fernet(coreKey)
       
@@ -346,10 +346,6 @@ try:
 
 except KeyboardInterrupt:
   print("WARNING: Program aborted. Quitting.")
-  exit(1)
-  
-except Exception as error:
-  print(f"FATAL: UNKNOWN ERROR: {error}")
   exit(1)
   
 
