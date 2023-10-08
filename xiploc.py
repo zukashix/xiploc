@@ -33,6 +33,7 @@ try:
       self.__folderIn = folderIn
       self.__folderOut = folderOut
       self.__folderName = folderName
+      self.__existingNames = []
     
     # Function to create a password locked zip archive
     def _makeEncrypt(self, password, path, zipOut, cipher):
@@ -57,7 +58,7 @@ try:
       os.remove(zipOut+"PRETEMP.zip")
     
     # Function to split any file into equally sized chunks with randomized filenames
-    def _splitFile(self, fileLoc, chunkSize, chunkDir = "./"):
+    def _splitFile(self, fileLoc, chunkSize, chunkDir = "./", csalt):
       # Open file to split
       fileR = open(fileLoc, "rb")
       
@@ -70,7 +71,12 @@ try:
       while byte:
        
           # Generate random alphanumeric name for file 
-          fileN = ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
+          while True:
+            fileN = ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
+            if (fileN not in self.__existingNames) and (fileN != csalt):
+              self.__existingNames.append(fileN)
+              break
+        
           chunkNameData[str(chunk)] = fileN
           fileN = chunkDir + fileN
           # Write chunk to file 
@@ -125,7 +131,7 @@ try:
       
       # Divide size of final archive to create 128/129 chunks of file and call file splitting function and save chunk name dictionary to variable
       chunkSize = (os.stat(self.__folderOut + "XipLoc/._temp/exiploc.zip").st_size) // 128
-      chunkNameData = self._splitFile(self.__folderOut + "XipLoc/._temp/exiploc.zip", chunkSize, self.__folderOut + "XipLoc/" + self.__folderName + "/")
+      chunkNameData = self._splitFile(self.__folderOut + "XipLoc/._temp/exiploc.zip", chunkSize, self.__folderOut + "XipLoc/" + self.__folderName + "/", CRYPTO_SALT)
     
       # Remove temporary working directory
       shutil.rmtree(self.__folderOut + "XipLoc/._temp/")
