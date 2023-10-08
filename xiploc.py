@@ -1,5 +1,5 @@
 # Define script version
-XIPLOC_VERSION = "1.0"
+XIPLOC_VERSION = "1.2"
 
 try:
   try:
@@ -20,6 +20,7 @@ try:
     import argparse
     import time
     import pathlib
+    from sys import exit
   except ModuleNotFoundError:
     # Handle error if modules are missing and exit
     print("FATAL: The xiploc application is not built correctly. Please reinstall/rebuild. Please ensure installation of [cryptography, pyzipper] modules if running from source.")
