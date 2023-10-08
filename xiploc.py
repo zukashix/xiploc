@@ -58,7 +58,7 @@ try:
       os.remove(zipOut+"PRETEMP.zip")
     
     # Function to split any file into equally sized chunks with randomized filenames
-    def _splitFile(self, fileLoc, chunkSize, chunkDir = "./", csalt):
+    def _splitFile(self, fileLoc, chunkSize, csalt, chunkDir = "./"):
       # Open file to split
       fileR = open(fileLoc, "rb")
       
@@ -131,7 +131,7 @@ try:
       
       # Divide size of final archive to create 128/129 chunks of file and call file splitting function and save chunk name dictionary to variable
       chunkSize = (os.stat(self.__folderOut + "XipLoc/._temp/exiploc.zip").st_size) // 128
-      chunkNameData = self._splitFile(self.__folderOut + "XipLoc/._temp/exiploc.zip", chunkSize, self.__folderOut + "XipLoc/" + self.__folderName + "/", CRYPTO_SALT)
+      chunkNameData = self._splitFile(self.__folderOut + "XipLoc/._temp/exiploc.zip", chunkSize, CRYPTO_SALT, self.__folderOut + "XipLoc/" + self.__folderName + "/")
     
       # Remove temporary working directory
       shutil.rmtree(self.__folderOut + "XipLoc/._temp/")
