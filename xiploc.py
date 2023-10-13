@@ -262,7 +262,7 @@ try:
       exit(1)
       
     # Enquire user for an output folder to work in 
-    outputFolder = str(input("Enter path to directory where the script will place encrypted data: ")).strip().replace("\\", "/")
+    outputFolder = str(input("Enter path to directory where the script will place encrypted data: ")).strip().replace("\\", "/").replace('"','')
     
     # Make checks and corrections required in output folder path 
     if not outputFolder.endswith("/"):
